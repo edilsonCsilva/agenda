@@ -94,7 +94,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
                     <table class="table">
                         <caption>
-                            <a href="javascript:void(0)" class="btn btn-danger"
+                            <a href="javascript:void(0)" id="indexNovoContato_Action" class="btn btn-danger"
                                ><span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span> 
                                 Cadastrar Novo Contato</a>   </caption>
                         <thead>
@@ -113,8 +113,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                 <td>Mark</td>
                                 <td>Otto</td>
                                 <td>@mdo</td>
-                                <td><a href="javascript:void(0)">   <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> </a></td>
-                                <td><a href="javascript:void(0)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>x</td>
+                                <td><a href="javascript:void(0)"  class="indexEditContato_Action"    >   <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> </a></td>
+                                <td><a href="javascript:void(0)"  class="indexRemoveContato_Action"  ><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                             </tr>
 
                         </tbody>
@@ -203,12 +203,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     chart.draw(data, options);
                 }
             }
-
-
-
-
-
-
             function setBarChats() {
 
 
@@ -216,14 +210,47 @@ defined('BASEPATH') or exit('No direct script access allowed');
             }
 
 
+            function getListContatos(){
+                //Lista os Contatos na Tela com consulta da Api
+                
+                
+                
+                
+            }
+
+
+         
+
+
 
             $(function () {
+
                 setChartPizza(125, 52);
                 setBarChats();
+                getListContatos();
+
+
+                $("#indexNovoContato_Action").on("click", function () {
+
+                    alert("d")
+                });
+
+                $(".indexEditContato_Action").on("click", function () {
+
+                    alert("s")
+                });
+
+                $(".indexRemoveContato_Action").on("click", function () {
+
+                    alert("dd")
+                });
+
+
 
             });
         </script>
 
     </body>
 
-</html>
+</html
+ 
