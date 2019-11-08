@@ -66,7 +66,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 <div class="col-md-6">
                     <div class="card" style="width: 18rem;">
                         <div class="card-body">
-                            <div id="piechart" style="width: 400px; height: 500px;"></div>
+                            <div id="piechart" style="width: 700px; height: 500px;"></div>
                         </div>
                     </div>
                 </div>
@@ -75,7 +75,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     <div class="col-md-6">
                         <div class="card" style="width: 18rem;">
                             <div class="card-body">
-                                <div id="chart_div" style="width: 700px; height: 400px;"></div>
+                                <div id="chart_div" style="width: 700px; height: 300px;"></div>
                             </div>
                         </div>
 
@@ -100,9 +100,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Username</th>
+                                <th>Nome do Contato</th>
+                                <th>Sexo</th>
+                                <th>Idade</th>
+                                <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -111,19 +113,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                 <td>Mark</td>
                                 <td>Otto</td>
                                 <td>@mdo</td>
+                                <td><a href="javascript:void(0)">   <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> </a></td>
+                                <td><a href="javascript:void(0)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>x</td>
                             </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
+
                         </tbody>
                     </table>
 
@@ -149,6 +142,28 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     <p class="text-muted">Place sticky footer content here.</p>
                 </div>
             </footer>
+
+
+
+            <!--tela de Cadastro e Atualizacao-->
+            <div class="modal fade" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Modal title</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>One fine body&hellip;</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+            <!--tela de Cadastro e Atualizacao-->
 
         </div>
 
@@ -190,81 +205,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
             }
 
 
-            function drawMaterial() {
-                var data = new google.visualization.DataTable();
-                data.addColumn('timeofday', 'Time of Day');
-                data.addColumn('number', 'Motivation Level');
-                data.addColumn('number', 'Energy Level');
 
-                data.addRows([
-                    [{
-                            v: [8, 0, 0],
-                            f: '8 am'
-                        }, 1, .25],
-                    [{
-                            v: [9, 0, 0],
-                            f: '9 am'
-                        }, 2, .5],
-                    [{
-                            v: [10, 0, 0],
-                            f: '10 am'
-                        }, 3, 1],
-                    [{
-                            v: [11, 0, 0],
-                            f: '11 am'
-                        }, 4, 2.25],
-                    [{
-                            v: [12, 0, 0],
-                            f: '12 pm'
-                        }, 5, 2.25],
-                    [{
-                            v: [13, 0, 0],
-                            f: '1 pm'
-                        }, 6, 3],
-                    [{
-                            v: [14, 0, 0],
-                            f: '2 pm'
-                        }, 7, 4],
-                    [{
-                            v: [15, 0, 0],
-                            f: '3 pm'
-                        }, 8, 5.25],
-                    [{
-                            v: [16, 0, 0],
-                            f: '4 pm'
-                        }, 9, 7.5],
-                    [{
-                            v: [17, 0, 0],
-                            f: '5 pm'
-                        }, 10, 10],
-                ]);
-
-                var options = {
-                    title: 'Motivation and Energy Level Throughout the Day',
-                    hAxis: {
-                        title: 'Time of Day',
-                        format: 'h:mm a',
-                        viewWindow: {
-                            min: [7, 30, 0],
-                            max: [17, 30, 0]
-                        }
-                    },
-                    vAxis: {
-                        title: 'Rating (scale of 1-10)'
-                    }
-                };
-
-                var materialChart = new google.charts.Bar(document.getElementById('chart_div'));
-                materialChart.draw(data, options);
-            }
 
 
 
             function setBarChats() {
-                google.charts.load('current', {
-                    packages: ['corechart', 'bar']
-                });
-                google.charts.setOnLoadCallback(drawMaterial);
+
+
 
             }
 
