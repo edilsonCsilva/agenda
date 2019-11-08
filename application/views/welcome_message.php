@@ -296,10 +296,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     soma += parseInt(contatos[poss].idade);
 
                 }
+                
+                 
 
                 if(qtItens==0){
                     tds="<td colspan='6'><h1>Não há Contatos Cadastrados..!</h1></td>";
                     $("#indexMedia").html("0");
+                     $("#indexTableContato").html(tds)
+                     
                 }else{
                     $("#indexTableContato").html(tds)
                     $("#indexMedia").html(parseInt(soma / qtItens))
@@ -349,7 +353,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     url: 'api/getContatosAll',
                     data: dados,
                     success: function (response) {
-                        // console.log(response)
+                          console.log(response)
                         try {
 
                             response = JSON.parse(response)
@@ -414,8 +418,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                     data: dados,
                                     success: function (response) {
                                         console.log(response)
-                                        
-                                        
+                                                                               
                                         try {
                                             /*
                                             response = JSON.parse(response)
@@ -435,13 +438,19 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                                 $('#indexCadastro').modal('hide')
                                             }
                                             */
-                                            getListContatos();
-                                            $('#indexDelete').modal('hide')
+                                           
                                            
                                            
                                         } catch (e) {
                                             alert("Erro de Parser..!")
                                         }
+                                        
+                                       
+                                         $('#indexDelete').modal('hide')
+                                         $("#_codigo_").val("");
+                                           getListContatos();
+                                           
+                                            
 
 
                                     },
