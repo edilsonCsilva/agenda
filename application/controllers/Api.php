@@ -55,6 +55,29 @@ class Api extends CI_Controller
         //id, nome, sexo, idade
         
         $responde="";
+        $erros="";
+        
+        if(strlen(trim($this->input->post('indexTxtNome')))==0){
+                
+               $erros.="Campo de nome Obrigatorio..!|";
+        }
+        
+        if(strlen(trim($this->input->post('indexTxtidade')))==0){
+              $erros.="Campo de Idade Obrigatorio..!|"; 
+              
+        }
+        
+        if( !is_numeric($this->input->post('indexTxtidade'))){
+              $erros.="Campo de Idade Invalido..!|"; 
+              
+        }
+        
+        if(strlen(trim($erros))>0){
+             $responde=array("erros"=>true,"msn"=>$erros);
+             echo json_encode($responde);
+             exit();
+        }
+        
         
         $contato=array("nome"=>$this->input->post('indexTxtNome'),"idade"=>$this->input->post('indexTxtidade'),"sexo"=>$this->input->post('indexOpSexo'));
         if($this->ContatosModel->save($contato)){
