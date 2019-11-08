@@ -50,12 +50,21 @@ class Api extends CI_Controller
 
     public function createContatos()
     {
-        var_dump($this->input->post());
+       // var_dump($this->input->post());
         
         //id, nome, sexo, idade
         
+        $responde="";
+        
         $contato=array("nome"=>$this->input->post('indexTxtNome'),"idade"=>$this->input->post('indexTxtidade'),"sexo"=>$this->input->post('indexOpSexo'));
-        $this->ContatosModel->save($contato);
+        if($this->ContatosModel->save($contato)){
+            $responde=array("erros"=>false,"msn"=>"Contato Cadastrado Com Sucesso..!");
+        }else{
+            $responde=array("erros"=>true,"msn"=>"Contado já Cadastrado..!|");
+        }
+        
+        
+        echo json_encode($responde);
                 
     }
 }

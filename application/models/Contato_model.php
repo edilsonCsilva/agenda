@@ -19,10 +19,12 @@ class Contato_model extends CI_Model {
     }
 
     public function save($contato) {
-        
-         $this->db->insert('contato',$contato);
-        
-        
+        $query = $this->db->select('id')-> where('nome', $contato["nome"])-> limit(1)-> get('contato');
+        if(count($query->result())==0){
+            $this->db->insert('contato',$contato);
+            return true;
+        }
+        return false;
     }
 
 

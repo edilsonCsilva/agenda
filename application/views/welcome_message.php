@@ -154,6 +154,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             </h4>
                         </div>
                         <div class="modal-body">
+                            <div id="indexCadastroMsn"></div>
+                             
                             <form id="indexFormCadastro">
 
                                 <div class="form-group">
@@ -236,12 +238,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
             }
             function setContatosInTable(contatos) {
-                console.log(contatos)
+                //console.log(contatos)
 
                 var qtItens = contatos.length;
                 var tds = "";
                 for (var poss = 0; poss < qtItens; poss++) {
-                    console.log(contatos[poss])
+                  //  console.log(contatos[poss])
 
                     var sexo = contatos[poss].sexo == "M" ? "Masculino" : "Feminino";
 
@@ -329,10 +331,35 @@ defined('BASEPATH') or exit('No direct script access allowed');
                              console.log(response)
                             try {
 
-                               // response = JSON.parse(response)
+                                  response = JSON.parse(response)
+                                  if(response.erros){
+                                      
+                                      var erros=response.msn.split("|");
+                                      var ul="<ul>";
+                                      for(var i=0;i<erros.length;i++){
+                                          if(erros[i] !=''){
+                                            ul+="<li>"+erros[i]+"</li>";
+                                          }
+                                      }
+                                      
+                                      ul=ul+"</ul>";
+                                      
+                                      
+                                      
+                                      
+                                      var alert="<div class=\"alert alert-success\" role=\"alert\">"+ul+"</div>";
+                                      $("#indexCadastroMsn").html(alert)
+                                      
+                                      
+                                  }else{
+                                    getListContatos();
+                                    $('#indexCadastro').modal('hide')   
+                                      
+                                  }   
+                                  
+                                
                                
-                                  getListContatos();
-                                 $('#indexCadastro').modal('hide')
+                                 
                                  
 
                             } catch (e) {
