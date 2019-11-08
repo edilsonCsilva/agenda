@@ -1,3 +1,26 @@
+//projeto
+
+
+o objetivo do teste é desenvolver 2 telas
+
+ -- tela de cadastro 
+ -- tela de listagem
+
+ A tela de cadastro deve ser composta de um formulario simples, porem com AJAX (Fecth, Axios, Jquery) sem recarregar a pagina.
+ A tela de listabem deve listar todos os itens cadastrados, com botoes de ações para EDITAR e EXCLUIR.
+
+ a tela de listagem deve consumir os dados cadastrados em JSON, uma api.
+
+
+o BACK-END deve ser com PHP, o FRONT-END utiliza Bootstrp, crie um repostorio e versione o teste de forma publica para que 
+possamos ter acesso (GIT/GITLAB/BITBUCKET).
+Utilizar estrutura MVC - Preferencialmente Codeigniter
+
+"lembrando que deve ter um arquivo que faça a criação das tabelas necessarias e que possamos ver funcionando na pratica o teste"
+
+
+
+
 //Uteis
 
 https://getbootstrap.com/docs/4.3/examples/
