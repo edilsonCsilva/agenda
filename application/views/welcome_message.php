@@ -95,7 +95,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     <table class="table">
                         <caption>
                             <a href="javascript:void(0)" id="indexNovoContato_Action" class="btn btn-danger"
-                               ><span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span> 
+                               ><span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>
                                 Cadastrar Novo Contato</a>   </caption>
                         <thead>
                             <tr>
@@ -107,14 +107,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                 <th></th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="indexTableContato">
                             <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td><a href="javascript:void(0)"  class="indexEditContato_Action"    >   <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> </a></td>
-                                <td><a href="javascript:void(0)"  class="indexRemoveContato_Action"  ><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
+
+                                <td colspan="6">Não há Contatos no Cadastrados</td>
                             </tr>
 
                         </tbody>
@@ -146,19 +142,52 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 
             <!--tela de Cadastro e Atualizacao-->
-            <div class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal fade" tabindex="-1" role="dialog"  id="indexCadastroUpdate" >
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">Modal title</h4>
+                            <h4 class="modal-title" >
+                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                                &nbsp;Novo Cadastro
+
+                            </h4>
                         </div>
                         <div class="modal-body">
-                            <p>One fine body&hellip;</p>
+
+
+
+                            <form id="indexFormCadastro">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Nome do Contato</label>
+                                    <input type="text" class="form-control" id="indexTxtNome" placeholder="Digite o nome..">
+                                </div>
+                               
+                                 <div class="form-group">
+                                    <label for="exampleInputEmail1">Nome do Contato</label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Digite o nome..">
+                                </div>
+                                
+                                
+                                 <div class="form-group">
+                                    <label  >Sexo</label>
+                                      <div class="checkbox">
+                                    <label>
+                                        <input type="radio" checked="true" name="indexOpSexo"> Masculino
+                                    </label>
+                                          
+                                     <label>
+                                         <input type="radio" name="indexOpSexo"> Feminino
+                                    </label>
+                                          
+                                          
+                                </div>
+                                 </div>
+                            </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-primary" id="indexSave" >Criar</button>
                         </div>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
@@ -208,32 +237,96 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 
             }
+            function setContatosInTable(contatos) {
+                console.log(contatos)
+
+                var qtItens = contatos.length;
+                var tds = "";
+                for (var poss = 0; poss < qtItens; poss++) {
+                    console.log(contatos[poss])
+
+                    var sexo = contatos[poss].sexo == "M" ? "Masculino" : "Feminino";
 
 
-            function getListContatos(){
-                //Lista os Contatos na Tela com consulta da Api
-                
-                
-                
-                
+                    var data = contatos[poss].id + "|" + contatos[poss].nome + "|" + sexo + "|" + contatos[poss].idade;
+
+
+                    tds += " <tr>";
+                    tds += "    <th scope=\"row\">" + contatos[poss].id + "</th>";
+                    tds += "    <td>" + contatos[poss].nome + "</td>";
+                    tds += "    <td>" + sexo + "</td>";
+                    tds += "    <td>" + contatos[poss].idade + "</td>";
+                    tds += "    <td><a href=\"javascript:void(0)\" data-role=\"" + data + "\"  class=\"indexEditContato_Action\"    >   <span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></span> </a></td>";
+                    tds += "    <td><a href=\"javascript:void(0)\" data-role=\"" + data + "\" class=\"indexRemoveContato_Action\"  ><span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span></a></td>";
+                    tds += "</tr>";
+
+                }
+
+
+                $("#indexTableContato").html(tds)
+
+
+
+
             }
+            function getListContatos() {
+                //Lista os Contatos na Tela com consulta da Api
+                var dados = {};
+                $.ajax({
+                    type: "POST",
+                    url: 'api/getContatosAll',
+                    data: dados,
+                    success: function (response) {
+                        // console.log(response)
+                        try {
+
+                            response = JSON.parse(response)
+                            setChartPizza(response.qtMasc, response.qtFem);
+                            setContatosInTable(response.contatos)
 
 
-         
+
+
+
+                        } catch (e) {
+                            alert("Erro de Parser..!")
+                        }
+
+
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert("some error");
+                    }
+                });
+
+
+
+
+            }
 
 
 
             $(function () {
 
-                setChartPizza(125, 52);
+                setChartPizza(0, 0);
                 setBarChats();
                 getListContatos();
 
 
                 $("#indexNovoContato_Action").on("click", function () {
+                    $("#indexCadastroUpdate").modal({"show": true})
+                    
+                    $('#indexCadastroUpdate').on('shown.bs.modal', function () {
+                        $('#indexTxtNome').focus()
+                    });
+                  
+                  
+                  
 
-                    alert("d")
                 });
+                
+                 
+                      
 
                 $(".indexEditContato_Action").on("click", function () {
 
@@ -253,4 +346,3 @@ defined('BASEPATH') or exit('No direct script access allowed');
     </body>
 
 </html
- 

@@ -17,7 +17,7 @@ class Api extends CI_Controller
     public function getContatosAll()
     {
 
-        echo "<pre>";
+        
 
 
         $resultContatos =  $this->ContatosModel->getContatosAll();
@@ -25,9 +25,10 @@ class Api extends CI_Controller
         $qtSexofeminino = 0;
 
         foreach ($resultContatos as $index => $contato) {
-
-            if (((array) $contato)["sexo"] == "M") {
+            $contato=(Array)$contato;
+            if ($contato["sexo"] == "M") {
                 $qtSexoMasculino++;
+                
             } else {
                 $qtSexofeminino++;
             }
