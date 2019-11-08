@@ -53,6 +53,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 //$route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-//$route['default_controller'] = 'welcome';
+$route['default_controller'] = 'welcome/index';
+ 
 $route['api/listagem'] = 'api/index2';
 $route['index'] = 'welcome/index';
+ 
