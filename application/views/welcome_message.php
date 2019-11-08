@@ -142,7 +142,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 
             <!--tela de Cadastro e Atualizacao-->
-            <div class="modal fade" tabindex="-1" role="dialog"  id="indexCadastroUpdate" >
+            <div class="modal fade" tabindex="-1" role="dialog"  id="indexCadastro" >
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -154,35 +154,33 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             </h4>
                         </div>
                         <div class="modal-body">
-
-
-
                             <form id="indexFormCadastro">
+
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Nome do Contato</label>
-                                    <input type="text" class="form-control" id="indexTxtNome" placeholder="Digite o nome..">
+                                    <input type="text" class="form-control" id="indexTxtNome" name="indexTxtNome" placeholder="Digite o nome..">
                                 </div>
-                               
-                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Nome do Contato</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Digite o nome..">
-                                </div>
-                                
-                                
-                                 <div class="form-group">
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Idade</label>
+                                    <input type="text" class="form-control" id="indexTxtidade" name="indexTxtidade"  placeholder="Digite o nome..">
+                                </div> 
+
+
+                                <div class="form-group">
                                     <label  >Sexo</label>
-                                      <div class="checkbox">
-                                    <label>
-                                        <input type="radio" checked="true" name="indexOpSexo"> Masculino
-                                    </label>
-                                          
-                                     <label>
-                                         <input type="radio" name="indexOpSexo"> Feminino
-                                    </label>
-                                          
-                                          
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="radio" value="M" checked="true" name="indexOpSexo"> Masculino
+                                        </label>
+
+                                        <label>
+                                            <input type="radio" value="F" name="indexOpSexo"> Feminino
+                                        </label>
+
+
+                                    </div>
                                 </div>
-                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
@@ -304,8 +302,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
             }
 
-
-
             $(function () {
 
                 setChartPizza(0, 0);
@@ -314,19 +310,45 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 
                 $("#indexNovoContato_Action").on("click", function () {
-                    $("#indexCadastroUpdate").modal({"show": true})
-                    
-                    $('#indexCadastroUpdate').on('shown.bs.modal', function () {
+                    $("#indexCadastro").modal()
+
+                    $('#indexCadastro').on('shown.bs.modal', function () {
                         $('#indexTxtNome').focus()
                     });
-                  
-                  
-                  
-
                 });
-                
-                 
-                      
+
+                $("#indexSave").on("click", function () {
+                   
+
+                    var dados = $("#indexFormCadastro").serialize()
+                    $.ajax({
+                        type: "POST",
+                        url: 'api/createContatos',
+                        data: dados,
+                        success: function (response) {
+                             console.log(response)
+                            try {
+
+                               // response = JSON.parse(response)
+                               
+                                  getListContatos();
+                                 $('#indexCadastro').modal('hide')
+                                 
+
+                            } catch (e) {
+                                alert("Erro de Parser..!")
+                            }
+
+
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            alert("some error");
+                        }
+                    });
+
+ 
+                });
+
 
                 $(".indexEditContato_Action").on("click", function () {
 

@@ -18,6 +18,12 @@ class Contato_model extends CI_Model {
         return $resultados->result();
     }
 
+    public function save($contato) {
+        
+         $this->db->insert('contato',$contato);
+        
+        
+    }
 
 
 

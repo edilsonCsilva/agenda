@@ -17,9 +17,6 @@ class Api extends CI_Controller
     public function getContatosAll()
     {
 
-        
-
-
         $resultContatos =  $this->ContatosModel->getContatosAll();
         $qtSexoMasculino = 0;
         $qtSexofeminino = 0;
@@ -33,14 +30,7 @@ class Api extends CI_Controller
                 $qtSexofeminino++;
             }
         }
-
-
-
-
-
-
-
-        print_r(json_encode(array("contatos" =>  $resultContatos, "qtMasc" => $qtSexoMasculino, "qtFem" => $qtSexofeminino)));
+        echo(json_encode(array("contatos" =>  $resultContatos, "qtMasc" => $qtSexoMasculino, "qtFem" => $qtSexofeminino)));
     }
 
     public function getContatosBy($id)
@@ -60,6 +50,12 @@ class Api extends CI_Controller
 
     public function createContatos()
     {
-        echo "sssdd";
+        var_dump($this->input->post());
+        
+        //id, nome, sexo, idade
+        
+        $contato=array("nome"=>$this->input->post('indexTxtNome'),"idade"=>$this->input->post('indexTxtidade'),"sexo"=>$this->input->post('indexOpSexo'));
+        $this->ContatosModel->save($contato);
+                
     }
 }
